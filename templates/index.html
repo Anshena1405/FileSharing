@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Sharing System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>⚡ File Sharing System ⚡</h1>
+
+        <div class="upload-section">
+            <h2>📤 Upload File</h2>
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" required>
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+
+        <div class="file-list">
+            <h2>📁 Shared Files</h2>
+            <table>
+                <tr>
+                    <th>File Name</th>
+                    <th>Size (KB)</th>
+                    <th>Upload Time</th>
+                    <th>Actions</th>
+                </tr>
+                {% for file, size, time in files %}
+                <tr>
+                    <td>{{ file }}</td>
+                    <td>{{ size }}</td>
+                    <td>{{ time }}</td>
+                    <td>
+                        <a href="/download/{{ file }}" class="btn download">⬇ Download</a>
+                        <a href="/delete/{{ file }}" class="btn delete">🗑 Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+</html>
